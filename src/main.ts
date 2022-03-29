@@ -2,6 +2,8 @@ import "./components/control-panel-group";
 import "./components/control-panel-item";
 import "./components/toggle-button";
 import "./components/slider";
+import "./components/notifications";
+
 import { BASE_THEME } from "./theme/theme";
 import { HOUSE_CONTROLS } from "./data";
 import { createControlPanelItem } from "./createControlPanelItem";
@@ -35,6 +37,7 @@ template.innerHTML = `
     <div id="app-root">
       <header>
         <h2>My Home Control Panel</h2>
+        <control-change-notifications/>
       </header>
       <main>
         <div id="controls-panel">
@@ -49,6 +52,8 @@ class Application extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot?.appendChild(template.content.cloneNode(true));
 
+    // Iterate through the data for all the house controls and create the corresponding elements.
+    // Then append them to the controls panel.
     HOUSE_CONTROLS.map((group) => {
       const groupElement = document.createElement("control-panel-group");
       groupElement.title = group.title;
@@ -60,13 +65,6 @@ class Application extends HTMLElement {
       this.shadowRoot
         ?.getElementById("controls-panel")
         ?.appendChild(groupElement);
-    });
-  }
-
-  connectedCallback() {
-    // TODO - do something here - remove it?
-    document.addEventListener("toggle-button-event", () => {
-      console.log("toggle-button-event-recieved");
     });
   }
 }

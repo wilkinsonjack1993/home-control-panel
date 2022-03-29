@@ -2,11 +2,15 @@ import "./components/control-panel-group";
 import "./components/control-panel-item";
 import "./components/toggle-button";
 import "./components/slider";
+import { BASE_THEME } from "./theme/theme";
+import { HOUSE_CONTROLS } from "./data";
+import { createControlPanelItem } from "./createControlPanelItem";
 
 const template = document.createElement("template");
 template.innerHTML = `
     <style>
     #app-root {
+      ${BASE_THEME}
       min-height: 100vh;
       min-width: 100vw;
     }
@@ -18,6 +22,15 @@ template.innerHTML = `
       margin: 0 auto;
     }
 
+    #slot {
+      width: 100%;
+    }
+
+    header {
+      padding: var(--padding-medium) var(--padding-large);
+      font-family: var(--font-family);
+    }
+
     </style>
     <div id="app-root">
       <header>
@@ -25,41 +38,6 @@ template.innerHTML = `
       </header>
       <main>
         <div id="controls-panel">
-          <control-panel-group title="Lights">
-            <control-panel-item>
-              <div slot="label">Label Here</div>
-              <div slot="controller">
-                <toggle-button label="toggle test" on-text="open" off-text="closed" initial-state="true">button</toggle-button>
-              </div>
-            </control-panel-item>
-
-            <control-panel-item>
-              <div slot="label">Label Here</div>
-              <div slot="controller"><slider-control/></div>
-            </control-panel-item>
-
-            <control-panel-item>
-              <div slot="label">Label Here</div>
-              <div slot="controller">Controller Here</div>
-            </control-panel-item>
-          </control-panel-group>
-
-          <control-panel-group title="Garden">
-            <control-panel-item>
-              <div slot="label">Label Here</div>
-              <div slot="controller">Controller Here</div>
-            </control-panel-item>
-
-            <control-panel-item>
-              <div slot="label">Label Here</div>
-              <div slot="controller">Controller Here</div>
-            </control-panel-item>
-
-            <control-panel-item>
-              <div slot="label">Label Here</div>
-              <div slot="controller">Controller Here</div>
-            </control-panel-item>
-          </control-panel-group>
         </div>
       </main>
     </div>
@@ -70,6 +48,19 @@ class Application extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot?.appendChild(template.content.cloneNode(true));
+
+    HOUSE_CONTROLS.map((group) => {
+      const groupElement = document.createElement("control-panel-group");
+      groupElement.title = group.title;
+      group.controls.map((control) => {
+        const controlElement = createControlPanelItem(control);
+        groupElement.appendChild(controlElement);
+      });
+
+      this.shadowRoot
+        ?.getElementById("controls-panel")
+        ?.appendChild(groupElement);
+    });
   }
 
   connectedCallback() {

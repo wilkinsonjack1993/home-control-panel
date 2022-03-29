@@ -1,10 +1,24 @@
-export {};
+export interface ToggleControlItem extends HTMLElement {
+  label: string;
+  initialState?: boolean;
+  onText?: string;
+  offText?: string;
+  eventId: string;
+}
+
 const DEFAULT_ON_LABEL = "On";
 const DEFAULT_OFF_LABEL = "Off";
 
 const template = document.createElement("template");
 template.innerHTML = `
     <style>
+    #toggle-button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     #toggle-button {
         position: relative;
         display: inline-block;
@@ -45,11 +59,11 @@ template.innerHTML = `
     }
 
     input:checked + #toggle-button-slider {
-        background-color: #2196F3;
+        background-color: var(--secondary-color);
     }
 
     input:focus + #toggle-button-slider {
-        box-shadow: 0 0 1px #2196F3;
+        box-shadow: 0 0 1px  var(--secondary-color);
     }
 
     input:checked + #toggle-button-slider:before {
@@ -57,13 +71,16 @@ template.innerHTML = `
         -ms-transform: translateX(26px);
         transform: translateX(26px);
     }
+
     </style>
-  
-    <p id="toggle-button-label">${DEFAULT_OFF_LABEL}</p>
-    <label id="toggle-button">
-        <input aria-checked="false" tab-index=0 id="toggle-button-input" type="checkbox">
-        <span id="toggle-button-slider"></span>
-    </label>
+
+    <div id="toggle-button-container">
+      <label id="toggle-button">
+          <input aria-checked="false" tab-index=0 id="toggle-button-input" type="checkbox">
+          <span id="toggle-button-slider"></span>
+      </label>
+      <p id="toggle-button-label">${DEFAULT_OFF_LABEL}</p>
+    </div>
 `;
 
 /**
@@ -78,13 +95,16 @@ template.innerHTML = `
 class ToggleButton extends HTMLElement {
   private onText = DEFAULT_ON_LABEL;
   private offText = DEFAULT_OFF_LABEL;
-  private eventId: string | null;
+  private eventId: string | null = null;
 
   private onChange = (evt: Event) => this.toggled(evt);
 
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
+  }
+
+  connectedCallback() {
     this.shadowRoot?.appendChild(template.content.cloneNode(true));
 
     // Get the attributes from the element
@@ -102,9 +122,6 @@ class ToggleButton extends HTMLElement {
       this.setInputState(initialState);
       this.setText(initialState);
     }
-  }
-
-  connectedCallback() {
     const input = this.getInput();
     if (input) {
       input.addEventListener("change", this.onChange);

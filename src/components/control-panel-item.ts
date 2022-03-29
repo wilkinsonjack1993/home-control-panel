@@ -8,8 +8,26 @@ template.innerHTML = `
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      background: lightblue;
+      background: var(--background-default);
+      border-top: 1px solid gray;
+      padding: var(--padding-large);
+      font-family: var(--font-family);
     }
+
+    #controls-panel-item-controller {
+      display: flex;
+      flex-grow: 2;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #controls-panel-item-label {
+      display: flex;
+      flex-grow: 1;
+      max-width: 200px;
+      align-items: center;
+    }
+
     </style>
   
     <div id="controls-panel-item">

@@ -6,7 +6,7 @@ import "./components/notifications";
 
 import { BASE_THEME } from "./theme/theme";
 import { HOUSE_CONTROLS } from "./data";
-import { createControlPanelItem } from "./createControlPanelItem";
+import { createControlPanelItem } from "./create-control-panel-item";
 
 const template = document.createElement("template");
 template.innerHTML = `

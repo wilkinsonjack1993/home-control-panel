@@ -10,6 +10,8 @@ template.innerHTML = `
       border-radius: var(--border-radius);
       box-shadow: 1px 1px 1px 1px lightgray;
       border: 0.5px solid lightgray;
+      margin-left: var(--padding-small);
+      margin-right: var(--padding-small);
     }
 
     #control-panel-group-header {

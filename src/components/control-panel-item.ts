@@ -5,13 +5,24 @@ template.innerHTML = `
     <style>
     #controls-panel-item {
       display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: space-between;
       background: var(--background-default);
       border-top: 1px solid gray;
       padding: var(--padding-large);
       font-family: var(--font-family);
+    }
+
+    @media (max-width: 400px) {
+      #controls-panel-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #controls-panel-item-label {
+        margin-bottom: var(--padding-small);
+        align-self: center;
+      }
     }
 
     #controls-panel-item-controller {

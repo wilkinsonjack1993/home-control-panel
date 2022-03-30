@@ -34,7 +34,7 @@ Then navigate to `localhost:8080`.
 Alternatively to host on a server, you can build the app:
 
 ```
-npm build
+npm run build
 ```
 
 You can then add the `index.html` file in the root of your folder along with the built assets in the `dist` folder to the server of your choice to be served.

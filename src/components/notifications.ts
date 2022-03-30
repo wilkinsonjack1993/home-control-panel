@@ -31,11 +31,17 @@ class Notifications extends HTMLElement {
 
   // For each event id add a listener so we can add a notification;
   connectedCallback() {
+    // Add listener for every eventId.
     HOUSE_CONTROLS.forEach((group) => {
       group.controls.forEach((control) => {
         const { type, eventId } = control;
 
+        // If no event ID is specified, don't add a listener.
+        if (!eventId) return;
+
+        // Listener for all events which shows a notification to show the current value of the control.
         const listener = (event: Event) => {
+          // TODO - move to switch statement.
           let message;
           if (type === "toggle") {
             const value = (event as CustomEvent).detail?.checked;
@@ -44,12 +50,16 @@ class Notifications extends HTMLElement {
             const value = (event as CustomEvent).detail?.value as number;
             message = this.getSliderMessage(control, value);
           }
-          if (message) {
-            if (this.timeout) clearTimeout(this.timeout);
-            this.addNotification(message);
 
+          if (message) {
+            // Clear any existing timeouts
+            if (this.timeout) clearTimeout(this.timeout);
+
+            // Add the notification and set timeout to remove it.
+            this.addNotification(message);
             this.timeout = setTimeout(() => {
               this.addNotification("");
+              // TODO - timeout should be configurable
             }, 3000);
           }
         };

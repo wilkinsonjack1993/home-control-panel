@@ -2,7 +2,7 @@ interface BaseControl {
   type: "toggle" | "slider";
   label: string;
   ariaLabel: string;
-  eventId: string;
+  eventId?: string;
 }
 
 export interface ToggleControl extends BaseControl {

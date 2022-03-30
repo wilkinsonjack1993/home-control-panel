@@ -2,12 +2,15 @@ import { SliderControl, ToggleControl } from "./data";
 import { SliderControlItem } from "./components/slider";
 import { ToggleControlItem } from "./components/toggle-button";
 
+// TODO - These functions could definitly be cleaned up
 const createSliderControl = (sliderControl: SliderControl) => {
   const sliderControlElement = document.createElement(
     "slider-control"
   ) as SliderControlItem;
   sliderControlElement.setAttribute("label", sliderControl.ariaLabel);
-  sliderControlElement.setAttribute("event-id", sliderControl.eventId);
+
+  if (sliderControl.eventId)
+    sliderControlElement.setAttribute("event-id", sliderControl.eventId);
 
   if (sliderControl.min)
     sliderControlElement.setAttribute("min", sliderControl.min.toString());
@@ -22,12 +25,15 @@ const createSliderControl = (sliderControl: SliderControl) => {
   return sliderControlElement;
 };
 
+// TODO - These functions could definitly be cleaned up
 const createToggleControl = (toggleControl: ToggleControl) => {
   const toggleControlElement = document.createElement(
     "toggle-button"
   ) as ToggleControlItem;
   toggleControlElement.setAttribute("label", toggleControl.ariaLabel);
-  toggleControlElement.setAttribute("event-id", toggleControl.eventId);
+
+  if (toggleControl.eventId)
+    toggleControlElement.setAttribute("event-id", toggleControl.eventId);
 
   if (toggleControl.initialState)
     toggleControlElement.setAttribute(

@@ -46,6 +46,7 @@ template.innerHTML = `
     </div>
 `;
 
+// Main application, take data from HOUSE_CONTROLS and create control panel groups and items accordingly.
 class Application extends HTMLElement {
   constructor() {
     super();

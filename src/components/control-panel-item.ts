@@ -51,11 +51,14 @@ template.innerHTML = `
     </div>
 `;
 
+/**
+ * Layout component with slots for labels and controls. 
+ */
 class ControlPanelItem extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot?.appendChild(template.content.cloneNode(true));
+    const shadowRoot = this.attachShadow({ mode: "open" });
+    shadowRoot.appendChild(template.content.cloneNode(true));
   }
 }
 

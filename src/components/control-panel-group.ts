@@ -29,6 +29,10 @@ template.innerHTML = `
           
 `;
 
+/**
+ * Layout component with slot for control panel items. 
+ * @param {string} title - Title of the control panel group.
+ */
 class ControlPanelGroup extends HTMLElement {
   constructor() {
     super();

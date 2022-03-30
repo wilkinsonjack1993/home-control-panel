@@ -194,7 +194,7 @@ On slide, we update the numerical value shown and dispatch an event if and event
 
 This component could be improved or expanded to have things like steps and more customisable styles that use the theme file.
 
-<p>&nbsp;</p>
+#
 
 ## Resources
 
